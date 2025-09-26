@@ -1,10 +1,16 @@
-CREATE TABLE IF NOT EXISTS employees (
+CREATE TABLE IF NOT EXISTS employee (
   id SERIAL PRIMARY KEY,
-  firstname VARCHAR(100) NOT NULL CHECK (firstname ~ '^[A-Za-z]+$'),
-  lastname VARCHAR(100) NOT NULL CHECK (lastname ~ '^[A-Za-z]+$'),
-  dept VARCHAR(100) NOT NULL CHECK (dept ~ '^[A-Za-z]+$'),
+  firstname VARCHAR(100) NOT NULL,
+  lastname VARCHAR(100) NOT NULL,
+  dept VARCHAR(100) NOT NULL,
   title VARCHAR(10) NOT NULL CHECK (title IN ('Mr','Miss','Mrs','Dr')),
-  birth_date DATE NOT NULL CHECK (birth_date >= DATE '1900-01-01' AND birth_date <= (CURRENT_DATE - INTERVAL '18 years')),
+  birthdate DATE NOT NULL CHECK (birthdate >= DATE '1900-01-01' AND birthdate <= (CURRENT_DATE - INTERVAL '18 years')),
   salary NUMERIC(12,2) NOT NULL CHECK (salary > 0),
-  email VARCHAR(255) UNIQUE NOT NULL CHECK (email ~* '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$')
+  email VARCHAR(255) NOT NULL UNIQUE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT now()
 );
+
+-- Add basic alphabetic checks for firstname/lastname/dept using regex
+ALTER TABLE employee ADD CONSTRAINT firstname_alpha CHECK (firstname ~ '^[A-Za-z]+$');
+ALTER TABLE employee ADD CONSTRAINT lastname_alpha CHECK (lastname ~ '^[A-Za-z]+$');
+ALTER TABLE employee ADD CONSTRAINT dept_alpha CHECK (dept ~ '^[A-Za-z]+$');
