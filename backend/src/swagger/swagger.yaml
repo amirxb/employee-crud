@@ -1,0 +1,134 @@
+openapi: 3.0.0
+info:
+  title: Employee CRUD API
+  version: 1.0.0
+  description: API for managing employees.
+servers:
+  - url: /api
+paths:
+  /employee:
+    get:
+      summary: List employees
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+    post:
+      summary: Create employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeCreate'
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        "400":
+          description: Validation error
+  /employee/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+    get:
+      summary: Get employee by id
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        "404":
+          description: Not found
+    put:
+      summary: Update employee
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeCreate'
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+        "400":
+          description: Validation error
+        "404":
+          description: Not found
+    delete:
+      summary: Delete employee
+      responses:
+        "200":
+          description: Deleted
+        "404":
+          description: Not found
+  /employee:
+    delete:
+      summary: Delete all employees
+      responses:
+        "200":
+          description: OK
+
+components:
+  schemas:
+    Employee:
+      type: object
+      properties:
+        id:
+          type: integer
+          minimum: 1
+        firstname:
+          type: string
+        lastname:
+          type: string
+        dept:
+          type: string
+        title:
+          type: string
+          enum: [Mr, Miss, Mrs, Dr]
+        birthDate:
+          type: string
+          format: date
+        salary:
+          type: number
+        email:
+          type: string
+    EmployeeCreate:
+      type: object
+      required: [firstname, lastname, dept, title, birthDate, salary, email]
+      properties:
+        firstname:
+          type: string
+        lastname:
+          type: string
+        dept:
+          type: string
+        title:
+          type: string
+          enum: [Mr, Miss, Mrs, Dr]
+        birthDate:
+          type: string
+          format: date
+          description: "ISO date. Must be on or after 1900-01-01 and age >= 18"
+        salary:
+          type: number
+        email:
+          type: string
