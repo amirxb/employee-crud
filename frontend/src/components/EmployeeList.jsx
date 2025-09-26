@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 export default function EmployeeList() {
   const dispatch = useDispatch();
-  const { list, loading, error } = useSelector(s => s.employees);
+  const { list, loading, error } = useSelector((s) => s.employees);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +21,7 @@ export default function EmployeeList() {
       </div>
 
       {loading && <p>Loading...</p>}
-      {error && <div style={{color:'red'}}>Error: {error}</div>}
+      {error && <div style={{ color: 'red' }}>Error: {error}</div>}
 
       {!loading && !list.length && <p>No employees. Add one.</p>}
 
@@ -29,11 +29,15 @@ export default function EmployeeList() {
         <table border="1" cellPadding="8">
           <thead>
             <tr>
-              <th>Id</th><th>First Name</th><th>Last Name</th><th>Department</th><th>Actions</th>
+              <th>Id</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Department</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {list.map(e => (
+            {list.map((e) => (
               <tr key={e.id}>
                 <td>{e.id}</td>
                 <td>{e.firstname}</td>

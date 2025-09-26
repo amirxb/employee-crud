@@ -9,23 +9,33 @@ export default function EmployeeView() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.getById(id).then(setEmp).catch(e => setError(e.message || 'Error'));
+    api
+      .getById(id)
+      .then(setEmp)
+      .catch((e) => setError(e.message || 'Error'));
   }, [id]);
 
-  if (error) return <div style={{color:'red'}}>Error: {error}</div>;
+  if (error) return <div style={{ color: 'red' }}>Error: {error}</div>;
   if (!emp) return <div>Loading...</div>;
 
   return (
     <div>
       <h2>Employee {emp.id}</h2>
       <dl>
-        <dt>First name</dt><dd>{emp.firstname}</dd>
-        <dt>Last name</dt><dd>{emp.lastname}</dd>
-        <dt>Department</dt><dd>{emp.dept}</dd>
-        <dt>Title</dt><dd>{emp.title}</dd>
-        <dt>Birthdate</dt><dd>{emp.birthdate}</dd>
-        <dt>Salary</dt><dd>{emp.salary}</dd>
-        <dt>Email</dt><dd>{emp.email}</dd>
+        <dt>First name</dt>
+        <dd>{emp.firstname}</dd>
+        <dt>Last name</dt>
+        <dd>{emp.lastname}</dd>
+        <dt>Department</dt>
+        <dd>{emp.dept}</dd>
+        <dt>Title</dt>
+        <dd>{emp.title}</dd>
+        <dt>Birthdate</dt>
+        <dd>{emp.birthdate}</dd>
+        <dt>Salary</dt>
+        <dd>{emp.salary}</dd>
+        <dt>Email</dt>
+        <dd>{emp.email}</dd>
       </dl>
       <button onClick={() => navigate('/')}>Back</button>
     </div>

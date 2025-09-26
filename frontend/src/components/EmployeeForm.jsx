@@ -14,7 +14,7 @@ export default function EmployeeForm({ mode = 'create' }) {
     title: 'Mr',
     birthDate: '',
     salary: '',
-    email: ''
+    email: '',
   });
   const [errors, setErrors] = useState([]);
   const [serverError, setServerError] = useState(null);
@@ -23,17 +23,20 @@ export default function EmployeeForm({ mode = 'create' }) {
 
   useEffect(() => {
     if (mode === 'edit' && id) {
-      api.getById(id).then(r => {
-        setModel({
-          firstname: r.firstname,
-          lastname: r.lastname,
-          dept: r.dept,
-          title: r.title,
-          birthDate: r.birthdate || r.birthDate,
-          salary: r.salary,
-          email: r.email
-        });
-      }).catch(e => setServerError(e.message || 'Error fetching employee'));
+      api
+        .getById(id)
+        .then((r) => {
+          setModel({
+            firstname: r.firstname,
+            lastname: r.lastname,
+            dept: r.dept,
+            title: r.title,
+            birthDate: r.birthdate || r.birthDate,
+            salary: r.salary,
+            email: r.email,
+          });
+        })
+        .catch((e) => setServerError(e.message || 'Error fetching employee'));
     }
   }, [mode, id]);
 
@@ -44,7 +47,10 @@ export default function EmployeeForm({ mode = 'create' }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const v = validateEmployee(model);
-    if (v.length) { setErrors(v); return; }
+    if (v.length) {
+      setErrors(v);
+      return;
+    }
     try {
       setServerError(null);
       if (mode === 'create') {
@@ -63,10 +69,15 @@ export default function EmployeeForm({ mode = 'create' }) {
   return (
     <div>
       <h2>{mode === 'create' ? 'Create' : 'Edit'} Employee</h2>
-      {serverError && <div style={{color: 'red'}}>{serverError}</div>}
+      {serverError && <div style={{ color: 'red' }}>{serverError}</div>}
       {errors.length > 0 && (
-        <ul style={{color:'red'}}>
-          {errors.map((er, idx) => <li key={idx}>{er.field ? `${er.field}: `: ''}{er.msg || er}</li>)}
+        <ul style={{ color: 'red' }}>
+          {errors.map((er, idx) => (
+            <li key={idx}>
+              {er.field ? `${er.field}: ` : ''}
+              {er.msg || er}
+            </li>
+          ))}
         </ul>
       )}
 
@@ -86,7 +97,10 @@ export default function EmployeeForm({ mode = 'create' }) {
         <div>
           <label>Title</label>
           <select name="title" value={model.title} onChange={handleChange}>
-            <option>Mr</option><option>Miss</option><option>Mrs</option><option>Dr</option>
+            <option>Mr</option>
+            <option>Miss</option>
+            <option>Mrs</option>
+            <option>Dr</option>
           </select>
         </div>
         <div>
@@ -95,14 +109,22 @@ export default function EmployeeForm({ mode = 'create' }) {
         </div>
         <div>
           <label>Salary</label>
-          <input name="salary" value={model.salary} onChange={handleChange} type="number" step="0.01"/>
+          <input
+            name="salary"
+            value={model.salary}
+            onChange={handleChange}
+            type="number"
+            step="0.01"
+          />
         </div>
         <div>
           <label>Email</label>
           <input name="email" value={model.email} onChange={handleChange} />
         </div>
         <button type="submit">{mode === 'create' ? 'Create' : 'Save'}</button>
-        <button type="button" onClick={() => navigate('/')}>Cancel</button>
+        <button type="button" onClick={() => navigate('/')}>
+          Cancel
+        </button>
       </form>
     </div>
   );

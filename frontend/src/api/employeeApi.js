@@ -28,7 +28,7 @@ export const create = async (payload) => {
   const res = await fetch(`${API_BASE}/employee`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   return handleResponse(res);
 };
@@ -37,7 +37,7 @@ export const update = async (id, payload) => {
   const res = await fetch(`${API_BASE}/employee/${id}`, {
     method: 'PUT',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
+    body: JSON.stringify(payload),
   });
   return handleResponse(res);
 };

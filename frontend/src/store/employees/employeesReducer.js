@@ -3,7 +3,7 @@ import { FETCH_EMPLOYEES, SET_ERROR, SET_LOADING } from './employeesActions';
 const initialState = {
   list: [],
   loading: false,
-  error: null
+  error: null,
 };
 
 export default function reducer(state = initialState, action) {

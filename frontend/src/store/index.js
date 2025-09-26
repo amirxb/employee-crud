@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import employeesReducer from './employees/employeesReducer';
 
 const rootReducer = combineReducers({
-  employees: employeesReducer
+  employees: employeesReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
