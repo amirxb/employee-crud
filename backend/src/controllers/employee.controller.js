@@ -2,6 +2,14 @@ const Employee = require("../models/employee.model");
 
 const sendError = (res, err) => {
   console.error(err);
+  if (err && err.code === "23505") {
+    return res
+      .status(400)
+      .json({
+        error: "Duplicate value",
+        details: [{ field: "email", msg: "Email must be unique" }],
+      });
+  }
   return res.status(500).json({ error: "Internal Server Error" });
 };
 
