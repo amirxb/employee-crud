@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import EmployeeList from './components/EmployeeList';
 import EmployeeForm from './components/EmployeeForm';
 import EmployeeView from './components/EmployeeView';
@@ -9,9 +9,6 @@ export default function App() {
     <div style={{ padding: 20 }}>
       <header>
         <h1>Employee Manager</h1>
-        <nav>
-          <Link to="/">Home</Link> | <Link to="/create">Add</Link>
-        </nav>
       </header>
       <main>
         <Routes>
