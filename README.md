@@ -1,6 +1,22 @@
 # Employee CRUD App (React + Express + PostgreSQL)
 
+🚀 Quick Start (Both Backend & Frontend)
 
+Terminal 1 (Backend):
+
+cd backend
+npm install
+npm run dev
+
+
+Terminal 2 (Frontend):
+
+cd frontend
+npm install
+npm start
+
+
+Then open your browser at: http://localhost:3000
 
 ```
 employee-crud
@@ -61,5 +77,6 @@ employee-crud
       │  └─ index.js
       └─ util
          └─ validators.js
+
 
 ```
